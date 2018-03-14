@@ -1,4 +1,6 @@
 # imu\_vn\_100
+This node is a derived version of KumarRobotics "imu_vn_100" node with several bug modification.
+
 For Vectornav VN-100T rugged IMU.
 
 The package is tested on Ubuntu 16.04 with ROS kinetic, and Ubuntu 14.04 with ROS indigo successfully.
