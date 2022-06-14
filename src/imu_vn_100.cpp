@@ -221,7 +221,7 @@ void ImuVn100::Stream(bool async) {
       int binary_async_mode;
       if(serial_interface_number_ == 1) binary_async_mode = BINARY_ASYNC_MODE_SERIAL_1;
       else if(serial_interface_number_ == 2) binary_async_mode = BINARY_ASYNC_MODE_SERIAL_2;
-      else throw std::runtime_error("Unknown serial interface number!\n");
+      else throw std::runtime_error("VN: Unknown serial interface number!\n");
 
       VnEnsure(vn100_setBinaryOutput1Configuration(
           &imu_, binary_async_mode, kBaseImuRate / imu_rate_,
@@ -294,7 +294,7 @@ void ImuVn100::PublishData(const VnDeviceCompositeData& data) {
     temp_msg.temperature = data.temperature;
     pd_temp_.Publish(temp_msg);
   }
-  ROS_INFO("IMU update!");
+  // ROS_INFO("IMU update!");
   sync_info_.Update(data.syncInCnt, imu_msg.header.stamp);
 
   updater_.update();
