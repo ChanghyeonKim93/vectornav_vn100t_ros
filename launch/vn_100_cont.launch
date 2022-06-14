@@ -9,10 +9,12 @@
 
     <!-- Sync out settings -->
     <!-- to disable this just set it to < 0 -->
-    <arg name="sync_rate" default="0"/>
+    <arg name="sync_rate" default="-1"/>
     <arg name="sync_pulse_width_us" default="1000"/>
 
     <arg name="binary_output" default="true"/>
+
+    <arg name="serial_interface_number" default="1"/>
 
     <!-- Ros Topic settings -->
     <arg name="enable_mag" default="true"/>
@@ -25,6 +27,7 @@
         <param name="frame_id" type="string" value="$(arg frame_id)"/>
         <param name="imu_rate" type="int" value="$(arg imu_rate)"/>
         <param name="binary_output" type="bool" value="$(arg binary_output)"/>
+        <param name="serial_interface_number" type="int" value="$(arg serial_interface_number)"/>
         <param name="enable_mag" type="bool" value="$(arg enable_mag)"/>
         <param name="enable_pres" type="bool" value="$(arg enable_pres)"/>
         <param name="enable_temp" type="bool" value="$(arg enable_temp)"/>

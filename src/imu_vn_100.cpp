@@ -114,6 +114,7 @@ void ImuVn100::LoadParameters() {
   pnh_.param("sync_pulse_width_us", sync_info_.pulse_width_us, 1000);
 
   pnh_.param("binary_output", binary_output_, true);
+  pnh_.param("serial_interface_number",serial_interface_number_ , 1);
 
   FixImuRate();
   sync_info_.FixSyncRate();
@@ -202,25 +203,35 @@ void ImuVn100::Initialize() {
   auto hardware_id = std::string("vn100-") + std::string(model_number_buffer) +
                      std::string(serial_number_buffer);
   updater_.setHardwareID(hardware_id);
+  
+  std::cout << "initialize OK!\n";
 }
 
 void ImuVn100::Stream(bool async) {
   // Pause the device first
+  std::cout << "stream on.\n";
   VnEnsure(vn100_pauseAsyncOutputs(&imu_, true));
 
   if (async) {
     VnEnsure(vn100_setAsynchronousDataOutputType(&imu_, VNASYNC_OFF, true));
-
+	std::cout << "async on\n";
     if (binary_output_) {
+    	std::cout << "binary on\n";
       // Set the binary output data type and data rate
+      int binary_async_mode;
+      if(serial_interface_number_ == 1) binary_async_mode = BINARY_ASYNC_MODE_SERIAL_1;
+      else if(serial_interface_number_ == 2) binary_async_mode = BINARY_ASYNC_MODE_SERIAL_2;
+      else throw std::runtime_error("Unknown serial interface number!\n");
+
       VnEnsure(vn100_setBinaryOutput1Configuration(
-          &imu_, BINARY_ASYNC_MODE_SERIAL_1, kBaseImuRate / imu_rate_,
+          &imu_, binary_async_mode, kBaseImuRate / imu_rate_,
           BG1_QTN | BG1_IMU | BG1_MAG_PRES | BG1_SYNC_IN_CNT,
           // BG1_IMU,
           BG3_NONE, BG5_NONE, true));
     } else {
       // Set the ASCII output data type and data rate
       // ROS_INFO("Configure the output data type and frequency (id: 6 & 7)");
+      std::cout << "ascii data\n";
       VnEnsure(vn100_setAsynchronousDataOutputType(&imu_, VNASYNC_VNIMU, true));
     }
 

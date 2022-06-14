@@ -119,6 +119,10 @@ class ImuVn100 {
   bool enable_temp_ = true;
   bool binary_output_ = true;
 
+  int serial_interface_number_ = 1; 
+  // 1: (serial_1) : RS232 (default, for original cable. TX1, RX1)
+  // 2: (serial_2) : TTL UART (TX2,RX2)
+
   SyncInfo sync_info_;
 
   du::Updater updater_;
