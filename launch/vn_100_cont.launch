@@ -5,16 +5,19 @@
     <arg name="port" default="/dev/ttyUSB0" />
     <arg name="frame_id" default="$(arg imu)"/>
     <arg name="baudrate" default="921600"/>
-    <arg name="imu_rate" default="200"/>
+    <arg name="imu_rate" default="400"/>
 
     <!-- Sync out settings -->
     <!-- to disable this just set it to < 0 -->
-    <arg name="sync_rate" default="-1"/>
+    <arg name="sync_rate" default="0"/>
     <arg name="sync_pulse_width_us" default="1000"/>
 
+    <!-- Binary output mode TRUE: quaternion outputs-->
     <arg name="binary_output" default="true"/>
 
-    <arg name="serial_interface_number" default="1"/>
+    <!-- Serial_1 : TX1, RX1 (default for original cable)-->
+    <!-- Serial 2 : TX2, RX2 (TTL level signal, customized cable only.)-->
+    <arg name="serial_interface_number" default="2"/>
 
     <!-- Ros Topic settings -->
     <arg name="enable_mag" default="true"/>
