@@ -1,6 +1,6 @@
 <launch>
     <arg name="output" default="screen"/>
-    <arg name="imu" default="imu"/>
+    <arg name="imu" default="vn100t"/>
 
     <arg name="port" default="/dev/ttyUSB0" />
     <arg name="frame_id" default="$(arg imu)"/>
@@ -24,7 +24,7 @@
     <arg name="enable_pres" default="true"/>
     <arg name="enable_temp" default="true"/>
 
-    <node pkg="imu_vn_100" name="$(arg imu)" type="imu_vn_100_cont_node" output="$(arg output)">
+    <node pkg="vectornav_vn100t_ros" name="$(arg imu)" type="vn100t_node" output="$(arg output)">
         <param name="port" type="string" value="$(arg port)"/>
         <param name="baudrate" type="int" value="$(arg baudrate)"/>
         <param name="frame_id" type="string" value="$(arg frame_id)"/>

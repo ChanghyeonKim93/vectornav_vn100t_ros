@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>imu_vn_100</name>
+  <name>vectornav_vn100t_ros</name>
   <version>0.0.0</version>
   <description>The imu_vn_100 package</description>
 

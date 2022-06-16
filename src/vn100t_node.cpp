@@ -4,7 +4,7 @@
 using namespace imu_vn_100;
 
 int main(int argc, char** argv) {
-  ros::init(argc, argv, "imu_vn_100");
+  ros::init(argc, argv, "vn100t_node");
   ros::NodeHandle pnh("~");
 
   try {

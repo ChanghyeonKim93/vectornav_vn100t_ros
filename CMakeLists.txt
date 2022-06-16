@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(imu_vn_100)
+project(vectornav_vn100t_ros)
 
-add_definitions("-std=c++11")
+add_definitions("-std=c++17")
 
 find_package(catkin REQUIRED COMPONENTS
   roscpp
@@ -38,13 +38,13 @@ add_dependencies(imu_vn_100
   ${catkin_EXPORTED_TARGETS}
 )
 
-add_executable(imu_vn_100_cont_node
-  src/imu_vn_100_cont.cpp)
-target_link_libraries(imu_vn_100_cont_node
+add_executable(vn100t_node
+  src/vn100t_node.cpp)
+target_link_libraries(vn100t_node
   ${catkin_LIBRARIES}
   imu_vn_100
 )
-add_dependencies(imu_vn_100_cont_node
+add_dependencies(vn100t_node
   ${${PROJECT_NAME}_EXPORTED_TARGETS}
   ${catkin_EXPORTED_TARGETS}
 )
