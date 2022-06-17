@@ -34,6 +34,7 @@ void FillImuMessage(sensor_msgs::Imu& imu_msg,
                     const VnDeviceCompositeData& data, bool binary_output);
 
 void AsyncListener(void* sender, VnDeviceCompositeData* data) {
+  std::cout << "listen!\n";
   imu_vn_100_ptr->PublishData(*data);
 }
 
@@ -214,7 +215,7 @@ void ImuVn100::Stream(bool async) {
 
   if (async) {
     VnEnsure(vn100_setAsynchronousDataOutputType(&imu_, VNASYNC_OFF, true));
-	std::cout << "async on\n";
+    std::cout << "async on\n";
     if (binary_output_) {
     	std::cout << "binary on\n";
       // Set the binary output data type and data rate
@@ -225,7 +226,7 @@ void ImuVn100::Stream(bool async) {
 
       VnEnsure(vn100_setBinaryOutput1Configuration(
           &imu_, binary_async_mode, kBaseImuRate / imu_rate_,
-          BG1_QTN | BG1_IMU | BG1_MAG_PRES | BG1_SYNC_IN_CNT,
+          BG1_TIME_STARTUP | BG1_QTN | BG1_IMU | BG1_MAG_PRES | BG1_SYNC_IN_CNT,
           // BG1_IMU,
           BG3_NONE, BG5_NONE, true));
     } else {
@@ -270,7 +271,6 @@ void ImuVn100::PublishData(const VnDeviceCompositeData& data) {
   sensor_msgs::Imu imu_msg;
   imu_msg.header.stamp = ros::Time::now();
   imu_msg.header.frame_id = frame_id_;
-
   FillImuMessage(imu_msg, data, binary_output_);
   pd_imu_.Publish(imu_msg);
 
@@ -294,7 +294,7 @@ void ImuVn100::PublishData(const VnDeviceCompositeData& data) {
     temp_msg.temperature = data.temperature;
     pd_temp_.Publish(temp_msg);
   }
-  // ROS_INFO("IMU update!");
+  ROS_INFO("IMU update!");
   sync_info_.Update(data.syncInCnt, imu_msg.header.stamp);
 
   updater_.update();
@@ -346,6 +346,7 @@ void RosQuaternionFromVnQuaternion(geometry_msgs::Quaternion& ros_quat,
 
 void FillImuMessage(sensor_msgs::Imu& imu_msg,
                     const VnDeviceCompositeData& data, bool binary_output) {
+    std::cout <<"time : " <<  data.timeStartup << std::endl;
   if (binary_output) {
     RosQuaternionFromVnQuaternion(imu_msg.orientation, data.quaternion);
     // NOTE: The IMU angular velocity and linear acceleration outputs are

@@ -10,7 +10,12 @@ int main(int argc, char** argv) {
   try {
     ImuVn100 imu(pnh);
     imu.Stream(true);
-    ros::spin();
+
+    ros::Rate rate(5000);
+    while(ros::ok()){
+      ros::spinOnce();
+      rate.sleep();
+    }
   } catch (const std::exception& e) {
     ROS_INFO("%s: %s", pnh.getNamespace().c_str(), e.what());
   }

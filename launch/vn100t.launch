@@ -21,8 +21,8 @@
 
     <!-- Ros Topic settings -->
     <arg name="enable_mag" default="true"/>
-    <arg name="enable_pres" default="true"/>
-    <arg name="enable_temp" default="true"/>
+    <arg name="enable_pres" default="false"/>
+    <arg name="enable_temp" default="false"/>
 
     <node pkg="vectornav_vn100t_ros" name="$(arg imu)" type="vn100t_node" output="$(arg output)">
         <param name="port" type="string" value="$(arg port)"/>
