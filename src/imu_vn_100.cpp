@@ -34,7 +34,6 @@ void FillImuMessage(sensor_msgs::Imu& imu_msg,
                     const VnDeviceCompositeData& data, bool binary_output);
 
 void AsyncListener(void* sender, VnDeviceCompositeData* data) {
-  std::cout << "listen!\n";
   imu_vn_100_ptr->PublishData(*data);
 }
 
@@ -220,14 +219,13 @@ void ImuVn100::Stream(bool async) {
     	std::cout << "binary on\n";
       // Set the binary output data type and data rate
       int binary_async_mode;
-      if(serial_interface_number_ == 1) binary_async_mode = BINARY_ASYNC_MODE_SERIAL_1;
+      if(serial_interface_number_ == 1)      binary_async_mode = BINARY_ASYNC_MODE_SERIAL_1;
       else if(serial_interface_number_ == 2) binary_async_mode = BINARY_ASYNC_MODE_SERIAL_2;
       else throw std::runtime_error("VN: Unknown serial interface number!\n");
 
       VnEnsure(vn100_setBinaryOutput1Configuration(
           &imu_, binary_async_mode, kBaseImuRate / imu_rate_,
           BG1_TIME_STARTUP | BG1_QTN | BG1_IMU | BG1_MAG_PRES | BG1_SYNC_IN_CNT,
-          // BG1_IMU,
           BG3_NONE, BG5_NONE, true));
     } else {
       // Set the ASCII output data type and data rate
@@ -271,6 +269,9 @@ void ImuVn100::PublishData(const VnDeviceCompositeData& data) {
   sensor_msgs::Imu imu_msg;
   imu_msg.header.stamp = ros::Time::now();
   imu_msg.header.frame_id = frame_id_;
+  // std::cout << "rostime:" << imu_msg.header.stamp.toSec()-1655550000.0 << std::endl;;
+  // std::cout << "imutime:" << (double)data.timeStartup/1000000000.0 << std::endl;
+  // std::cout << "gap:" << imu_msg.header.stamp.toSec()-1655550000.0-(double)data.timeStartup/1000000000.0 <<"\n\n";
   FillImuMessage(imu_msg, data, binary_output_);
   pd_imu_.Publish(imu_msg);
 
@@ -294,7 +295,7 @@ void ImuVn100::PublishData(const VnDeviceCompositeData& data) {
     temp_msg.temperature = data.temperature;
     pd_temp_.Publish(temp_msg);
   }
-  ROS_INFO("IMU update!");
+  // ROS_INFO("IMU update!");
   sync_info_.Update(data.syncInCnt, imu_msg.header.stamp);
 
   updater_.update();
@@ -346,7 +347,6 @@ void RosQuaternionFromVnQuaternion(geometry_msgs::Quaternion& ros_quat,
 
 void FillImuMessage(sensor_msgs::Imu& imu_msg,
                     const VnDeviceCompositeData& data, bool binary_output) {
-    std::cout <<"time : " <<  data.timeStartup << std::endl;
   if (binary_output) {
     RosQuaternionFromVnQuaternion(imu_msg.orientation, data.quaternion);
     // NOTE: The IMU angular velocity and linear acceleration outputs are
