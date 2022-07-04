@@ -1632,7 +1632,7 @@ void* vndevice_communicationHandler(
 
 		if (numOfBytesRead == 0) {
 			/* There was no data. Sleep for a short amount of time before continuing. */
-			vncp_sleepInMs(NUMBER_OF_MILLISECONDS_TO_SLEEP_AFTER_RECEIVING_NO_BYTES_ON_COM_PORT_READ);
+			//vncp_sleepInMs(NUMBER_OF_MILLISECONDS_TO_SLEEP_AFTER_RECEIVING_NO_BYTES_ON_COM_PORT_READ);
 			continue;
 		}
 
