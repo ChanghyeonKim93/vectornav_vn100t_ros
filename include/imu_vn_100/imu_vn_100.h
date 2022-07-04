@@ -107,6 +107,8 @@ class ImuVn100 {
   ros::NodeHandle pnh_;
   Vn100 imu_;
 
+  ros::Time time_start_;
+
   // Settings
   std::string port_;
   int baudrate_ = 921600;
