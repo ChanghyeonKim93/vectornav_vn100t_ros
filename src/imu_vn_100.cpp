@@ -271,9 +271,9 @@ void ImuVn100::PublishData(const VnDeviceCompositeData& data) {
   sensor_msgs::Imu imu_msg;
   imu_msg.header.stamp    = ros::Time::now();
   imu_msg.header.frame_id = frame_id_;
-   std::cout << "rostime:" << (imu_msg.header.stamp.toSec()-time_start_.toSec()) << std::endl;;
-   std::cout << "imutime:" << (double)data.timeStartup/1000000000.0 << std::endl;
-   std::cout << "gap:" <<(imu_msg.header.stamp.toSec()-time_start_.toSec())-(double)data.timeStartup/1000000000.0 <<"\n\n";
+  //  std::cout << "rostime:" << (imu_msg.header.stamp.toSec()-time_start_.toSec()) << std::endl;;
+  //  std::cout << "imutime:" << (double)data.timeStartup/1000000000.0 << std::endl;
+  //  std::cout << "gap:" <<(imu_msg.header.stamp.toSec()-time_start_.toSec())-(double)data.timeStartup/1000000000.0 <<"\n\n";
   FillImuMessage(imu_msg, data, binary_output_);
   pd_imu_.Publish(imu_msg);
 
