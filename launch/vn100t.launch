@@ -2,7 +2,7 @@
     <arg name="output" default="screen"/>
     <arg name="imu" default="vn100t"/>
 
-    <arg name="port" default="/dev/ttyUSB0" />
+    <arg name="port" default="/dev/vn100t" />
     <arg name="frame_id" default="$(arg imu)"/>
     <arg name="baudrate" default="921600"/>
     <arg name="imu_rate" default="400"/>
