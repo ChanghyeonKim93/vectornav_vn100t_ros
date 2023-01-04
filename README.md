@@ -11,9 +11,11 @@ Important Note for using Factory-default and Customized Settings
 ------
    This node assumes that the IMU uses the **'Serial 2'** port to communicate to the PC on USB.
    
-   In the LARR setting (= customized USB cable by CHK), using **'Serial 2'** port is default.
+   You can find the parameter related to this as 'serial_interface_number' in roslaunch file.
    
-   Factory-default setting is using the **'Serial 1'** port. In case of using the factory-default wiring setting, you should choose the **'Serial 1'** in the roslaunch file.
+   In the LARR setting (= customized USB cable by CHK), using **'Serial 2'** port is default. (Set 'serial_interface_number' to 2)
+   
+   Factory-default setting is using the **'Serial 1'** port. In case of using the factory-default wiring setting, you should choose the **'Serial 1'** in the roslaunch file. (Set 'serial_interface_number' to 1)
 
 1.Installation
 ------
