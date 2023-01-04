@@ -7,6 +7,14 @@ Tested in:
 * Ubuntu 16.04LTS with ROS Kinetic
 * Ubuntu 20.04LTS with ROS Noetic
 
+Important Note for using Factory-default and Customized Settings
+------
+   This node assumes that the IMU uses the **'Serial 2'** port to communicate to the PC on USB.
+   
+   In the LARR setting (= customized USB cable by CHK), using **'Serial 2'** port is default.
+   
+   Factory-default setting is using the **'Serial 1'** port. In case of using the factory-default wiring setting, you should choose the **'Serial 1'** in the roslaunch file.
+
 1.Installation
 ------
     cd ~/{$YOUR_WORKSPACE}/src
